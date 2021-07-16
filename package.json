@@ -70,5 +70,13 @@
     "word-wrap": "^1.2.3"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codehhr/Message-board.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codehhr/Message-board/issues"
+  },
+  "homepage": "https://github.com/codehhr/Message-board#readme"
 }
