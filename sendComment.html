@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://codehhr.cn/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Document</title>
+    <style>
+      .container {
+        margin: 20px auto;
+      }
+      .form-group,
+      button {
+        margin: 10px 0 !important;
+        outline: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        action="http://localhost:4000/send"
+        method="GET"
+        class="form-horizontal"
+        role="form"
+      >
+        <div class="form-group">
+          <legend><h1>书写评论</h1></legend>
+        </div>
+
+        <a href="/back"
+          ><button type="button" class="btn btn-primary">返回</button></a
+        >
+
+        <div class="form-group">
+          <label class="" for="username"><h3>用户名</h3></label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            placeholder="用户名"
+            required="required"
+          />
+        </div>
+
+        <label class="" for="comment-textarea"><h3>评论内容</h3></label>
+        <textarea
+          name="comment"
+          class="form-control"
+          rows="4"
+          required="required"
+          placeholder="评论内容"
+        ></textarea>
+
+        <button type="submit" class="btn btn-warning">提交</button>
+      </form>
+    </div>
+  </body>
+</html>

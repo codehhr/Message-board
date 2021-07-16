@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://codehhr.cn/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+      .container {
+        margin: 40px auto;
+        min-width: 400px;
+      }
+      button {
+        outline: none !important;
+      }
+      .btn-danger {
+        margin: 0 10px;
+        padding: 4px 10px;
+        background-color: transparent;
+        border: none;
+        border-radius: 6px;
+      }
+      .editor {
+        margin: 0 6px;
+        padding: 0;
+        width: 40px;
+        height: 26px;
+        text-align: center;
+        line-height: 26px;
+        font-size: 12px;
+        visibility: hidden;
+      }
+      .table {
+        margin: 10px auto;
+      }
+      .table > tbody > tr > td {
+        padding: 8px 0 !important;
+        vertical-align: middle;
+      }
+      .table > tbody > tr:hover .btn-danger {
+        background-color: #ff7571;
+      }
+      .table > tbody > tr:hover .editor {
+        visibility: visible;
+      }
+      .panel-body-top {
+        overflow: hidden;
+      }
+      .search {
+        width: 50%;
+        float: left;
+        height: inherit;
+      }
+      .write-btn {
+        float: right;
+      }
+      .write-btn button {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+      .panel-body-top input {
+        outline: none;
+        transition: all 0.4s ease-in-out;
+        overflow: hidden;
+      }
+      .form {
+        float: left;
+        width: 200px;
+        display: flex;
+      }
+      .badge {
+        line-height: 20px;
+        color: #ffffff;
+        background-color: #eb9f7b;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h1 class="panel-title">留言板</h1>
+        </div>
+        <div class="panel-body">
+          <nav class="panel-body-top">
+            <form action="/search" method="GET" class="input-group search">
+              <!-- <div class="form"> -->
+              <input
+                name="value"
+                type="text"
+                class="form-control"
+                id="exampleInputAmount"
+                placeholder="搜索"
+              />
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default search-btn">
+                  开始
+                </button>
+              </span>
+              <!-- </div> -->
+            </form>
+            <div class="write-btn">
+              <a href="./sendComment.html"
+                ><button type="button" class="btn btn-success">
+                  写留言
+                </button></a
+              >
+            </div>
+          </nav>
+
+          <table class="table table-hover">
+            <tbody>
+              {{each comment_list}}
+              <tr class="clearfix">
+                <td class="comment">{{$value.comment}}</td>
+                <!-- <td class="userid">{{$value.id}}</td> -->
+                <td>
+                  <a
+                    class="a-tag"
+                    userid="{{$value.id}}"
+                    href="/delete?userid={{$value.id}}"
+                  ></a>
+                  <!-- 按钮触发模态框 -->
+                  <button
+                    class="btn btn-danger delete-btn btn-xs pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                  >
+                    删除
+                  </button>
+                  <!-- 模态框（Modal） -->
+                  <div
+                    class="modal fade"
+                    id="myModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="myModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-hidden="true"
+                          >
+                            ×
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">提示</h4>
+                        </div>
+                        <div class="modal-body">删除此条评论 ? 不可撤回 !</div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal"
+                          >
+                            关闭
+                          </button>
+                          <button type="submit" class="btn btn-primary confirm">
+                            确认
+                          </button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  <a href="/edit.html?userid={{$value.id}}" class="pull-right">
+                    <button type="button" class="btn btn-info editor">
+                      编辑
+                    </button>
+                  </a>
+
+                  <div class="badge pull-right">{{$value.name}}</div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        // 删除评论 start
+        function deleteComment() {
+          $(".delete-btn").click(function () {
+            let that = this;
+            $(".confirm").click(function () {
+              $.get($(that).prev().attr("href"), function () {
+                window.location.href = "./index.html";
+              });
+            });
+          });
+        }
+        deleteComment();
+        // 删除评论 end
+      });
+    </script>
+  </body>
+</html>
