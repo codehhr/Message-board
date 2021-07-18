@@ -179,6 +179,7 @@ server.on("request", function (req, res) {
 // 监听端口
 server.listen("4000", function () {
   console.log("\n");
-  console.log("再次起飞 ~");
+  console.log("\tlocalhost:4000\n");
+  console.log("\t起飞 ~");
   console.log("\n");
 });
